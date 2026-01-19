@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "Focus9 CORS Fix",
+  "version": "1.0",
+  "description": "Fixes CORS for Focus9 API",
+  "permissions": [
+    "declarativeNetRequest"
+  ],
+  "host_permissions": [
+    "http://103.252.144.86/*",
+    "http://localhost:3000/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "ruleset_1",
+        "enabled": true,
+        "path": "rules.json"
+      }
+    ]
+  }
+}
