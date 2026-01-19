@@ -7,6 +7,9 @@ module.exports = function (app) {
       target: "http://103.252.144.86",
       changeOrigin: true,
       secure: false,
+      pathRewrite: {
+        "^/api": "", 
+      },
     })
   );
 };
