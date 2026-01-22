@@ -1,18 +1,26 @@
+/* =========================
+   RESET
+========================= */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* =========================
+   WRAPPER
+========================= */
 .dashboard-wrapper {
   display: flex;
   height: 100vh;
   font-family: "Segoe UI", sans-serif;
 }
 
-/* THEMES */
+/* =========================
+   THEMES
+========================= */
 .dashboard-wrapper.dark {
-  background: #0f172a;
+  background: #0f152a;
   color: #e5e7eb;
 }
 
@@ -21,12 +29,14 @@
   color: #1f2937;
 }
 
-/* SIDEBAR */
+/* =========================
+   SIDEBAR
+========================= */
 .sidebar {
   display: flex;
   flex-direction: column;
-  transition: width 0.35s ease;
-  overflow: hidden;
+  transition: width 0.3s ease;
+  overflow: visible; /* IMPORTANT: no clipping, no scroll */
 }
 
 .dark .sidebar {
@@ -34,63 +44,73 @@
 }
 
 .light .sidebar {
-  background: #1e3a8a;
+  background: #3663f8;
 }
 
 .sidebar.expanded {
-  width: 320px;
+  width: 140px;
 }
 
 .sidebar.collapsed {
   width: 90px;
 }
 
-/* HEADER */
+/* =========================
+   SIDEBAR HEADER
+========================= */
 .sidebar-header {
   display: flex;
-  align-items: center;
-  gap: 12px;
+  justify-content: space-between;
+  align-items: flex-start;
   padding: 16px;
+  margin-top: 15px;
+  margin-bottom: 30px;
+}
+
+/* LOGO + COMPANY NAME */
+.logo-area {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
 }
 
 .company-logo {
-  width: 56px;
-  height: 56px;
+  width: 50px;
+  height: 60px;
   border-radius: 10px;
-}
-
-.company-info {
-  flex: 1;
 }
 
 .company-name {
   font-weight: 700;
   font-size: 14px;
+  color: #f4f6f8;
+  line-height: 1.2;
 }
 
-.company-user {
-  font-size: 11px;
-  opacity: 0.7;
-}
-
-.company-username {
-  font-size: 13px;
-  font-weight: 600;
-}
-
-/* TOGGLE */
+/* TOGGLE BUTTON */
 .sidebar-toggle {
-  background: none;
+  background: rgba(255, 255, 255, 0.15);
   border: none;
   color: white;
-  font-size: 22px;
+  font-size: 20px;
+  padding: 6px 10px;
+  border-radius: 6px;
   cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
 }
 
-/* NAV */
+.sidebar-toggle:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* =========================
+   NAVIGATION (NO SCROLL)
+========================= */
 .sidebar-nav {
-  flex: 1;
   padding: 12px;
+  margin-bottom: 230px;
+  
 }
 
 .nav-item {
@@ -102,37 +122,104 @@
   color: white;
   cursor: pointer;
   text-align: left;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
-.nav-item.active,
-.nav-item:hover {
+.nav-item.active {
   background: rgba(255, 255, 255, 0.15);
 }
 
-/* FOOTER */
+/* =========================
+   USER INFO (ABOVE FOOTER)
+========================= */
+.user-info {
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  margin-top: 6px;
+  margin-bottom: 10px;
+}
+
+.user-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #3663f8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.company-code {
+  font-size: 12px;
+  opacity: 0.85;
+  color:#ffffff;
+}
+
+/* =========================
+   FOOTER (FIXED, VISIBLE)
+========================= */
 .sidebar-footer {
   padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.theme-btn,
-.logout-btn {
+.sidebar-footer button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   width: 100%;
-  padding: 10px;
-  border-radius: 6px;
+  padding: 10px 12px;
   border: none;
-  margin-bottom: 8px;
+  border-radius: 8px;
   cursor: pointer;
+  font-size: 14px;
+  background: transparent;
+  color: white;
+  transition: background 0.2s ease;
 }
 
-/* MAIN */
+.sidebar-footer button:hover {
+  background-color: rgba(0, 0, 0, 0.25);
+}
+
+.logout-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+/* =========================
+   MAIN CONTENT
+========================= */
 .main-content {
   flex: 1;
   padding: 24px;
-  overflow-y: auto;
+  overflow-y: auto; /* content scroll only */
 }
 
-/* TASK CARDS */
+/* =========================
+   TASK CARDS
+========================= */
 .task-cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -144,10 +231,12 @@
   background: white;
   padding: 16px;
   border-radius: 8px;
-  color: black;
+  color: #10b981;
 }
 
-/* TASK TABS */
+/* =========================
+   TASK TABS
+========================= */
 .task-tabs {
   display: flex;
   gap: 10px;
@@ -162,7 +251,7 @@
 }
 
 .task-tab.active {
-  background: #2563eb;
+  background: #19191a;
   color: white;
 }
 
@@ -170,4 +259,25 @@
   background: white;
   padding: 20px;
   border-radius: 8px;
+}
+
+/* =========================
+   MOBILE HEIGHT ADJUSTMENT
+========================= */
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    z-index: 1000;
+  }
+
+  .main-content {
+    margin-left: 90px; /* collapsed width */
+  }
+
+  .sidebar.expanded ~ .main-content {
+    margin-left: 140px;
+  }
 }

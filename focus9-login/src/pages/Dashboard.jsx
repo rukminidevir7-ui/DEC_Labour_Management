@@ -5,6 +5,7 @@ import CalendarView from "../components/CalendarView";
 import api from "../api/api";
 import "./Dashboard.css";
 import logoImage from "../assets/Logo.jpg.jpeg";
+import logOut from "../assets/shutdown.png";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -33,25 +34,24 @@ function Dashboard() {
     <div className={`dashboard-wrapper ${darkMode ? "dark" : "light"}`}>
       {/* SIDEBAR */}
       <aside className={`sidebar ${sidebarOpen ? "expanded" : "collapsed"}`}>
+        
+        {/* HEADER */}
         <div className="sidebar-header">
-          <img src={logoImage} alt="DEC Logo" className="company-logo" />
-
-          {sidebarOpen && (
-            <div className="company-info">
-              <div className="company-name">DEC Labour Workflow System</div>
-              <div className="company-user">Logged in as</div>
-              <div className="company-username">
-                {user?.username || "mobile"}
-              </div>
-            </div>
-          )}
+          <div className="logo-area">
+            <img src={logoImage} alt="DEC Logo" className="company-logo" />
+            {sidebarOpen && (
+              <div className="company-name">DEC Labour System</div>
+            )}
+          </div>
 
           <button
-            className="sidebar-toggle"
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-          >
-            ☰
-          </button>
+  className="sidebar-toggle"
+  onClick={() => setSidebarOpen(!sidebarOpen)}
+  aria-label="Toggle sidebar"
+>
+  {sidebarOpen ? "‹" : "›"}
+</button>
+
         </div>
 
         {/* NAVIGATION */}
@@ -81,17 +81,38 @@ function Dashboard() {
           </button>
         </nav>
 
+        {/* USER INFO (👈 ABOVE FOOTER LINE) */}
+        <div className="user-info">
+          <div className="user-avatar">
+            {user?.username?.charAt(0)?.toUpperCase()}
+          </div>
+
+          {sidebarOpen && (
+            <div className="user-details">
+              <div className="user-name">{user?.username}</div>
+              <div className="company-code">
+                Company: {user?.companyId}
+              </div>
+            </div>
+          )}
+        </div>
+
         {/* FOOTER */}
         <div className="sidebar-footer">
           <button
-            className="theme-btn"
-            onClick={() => setDarkMode(!darkMode)}
-          >
-            {darkMode ? "🌙 Dark" : "☀️ Light"}
-          </button>
+  className="theme-btn"
+  onClick={() => setDarkMode(!darkMode)}
+>
+  <span>{darkMode ? "🌙" : "☀️"}</span>
+  {sidebarOpen && (
+    <span>{darkMode ? "Dark" : "Light"}</span>
+  )}
+</button>
+
 
           <button className="logout-btn" onClick={handleLogout}>
-            ⏻ {sidebarOpen && "Logout"}
+            <img src={logOut} alt="Logout" className="logout-icon" />
+            {sidebarOpen && <span>Logout</span>}
           </button>
         </div>
       </aside>
@@ -100,19 +121,7 @@ function Dashboard() {
       <main className="main-content">
         {activeTab === "calendar" && (
           <>
-            <h2>Today’s Overview</h2>
-
-            <div className="task-cards">
-              <div
-                className="task-card"
-                onClick={() => navigate("/labour/new")}
-              >
-                ➕ New Labour Entry
-              </div>
-              <div className="task-card">📋 Work Status</div>
-              <div className="task-card">✔ QC Summary</div>
-            </div>
-
+            <h2>Calendar</h2>
             <CalendarView />
           </>
         )}
