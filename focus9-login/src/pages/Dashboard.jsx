@@ -121,7 +121,7 @@ function Dashboard() {
       <main className="main-content">
         {activeTab === "calendar" && (
           <>
-            <h2>Calendar</h2>
+            <h2>DEC_Calendar</h2>
             <CalendarView />
           </>
         )}
